@@ -1,30 +1,37 @@
 # 🌐 AI Network Fault Prediction & Monitoring System
 
-![Python](https://img.shields.io/badge/Python-3.x-blue)
-![Flask](https://img.shields.io/badge/Framework-Flask-green)
-![AI](https://img.shields.io/badge/AI-Bayesian%20Network-purple)
-![Chart.js](https://img.shields.io/badge/Charts-Chart.js-orange)
-![Status](https://img.shields.io/badge/Status-Live-success)
+<p align="center">
+  <b>An AI-powered intelligent network monitoring and fault prediction system</b>
+</p>
 
-An **AI-powered Network Fault Prediction and Monitoring System** designed to predict possible network failures, monitor network conditions, visualize network topology, analyze network packets, detect suspicious activities, and provide intelligent recommendations.
+<p align="center">
+  <a href="https://network-fault-prediction.onrender.com/">
+    <img src="https://img.shields.io/badge/🚀%20Live%20Demo-Open%20Project-success?style=for-the-badge" alt="Live Demo">
+  </a>
+</p>
 
-The system uses **Bayesian AI** to analyze important network parameters such as CPU usage, latency, packet loss, and bandwidth to estimate the probability of a network fault.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.x-blue?style=flat-square">
+  <img src="https://img.shields.io/badge/Flask-Web%20Framework-green?style=flat-square">
+  <img src="https://img.shields.io/badge/AI-Bayesian%20Network-purple?style=flat-square">
+  <img src="https://img.shields.io/badge/JavaScript-ES6-yellow?style=flat-square">
+  <img src="https://img.shields.io/badge/Chart.js-Visualization-orange?style=flat-square">
+  <img src="https://img.shields.io/badge/Deployment-Render-blueviolet?style=flat-square">
+</p>
 
 ---
 
 ## 🚀 Live Project
 
-### 🌐 Project Website
+### 🌐 Open the Application
 
-👉 **[Open AI Network Fault Prediction System](https://network-fault-prediction.onrender.com/)**
+👉 **https://network-fault-prediction.onrender.com/**
 
-The application is deployed using **Render** and can be accessed directly through the link above.
+The project is deployed on **Render** and can be accessed directly through the live website.
 
----
+### 📱 Scan QR Code
 
-## 📱 Scan QR Code
-
-Scan the QR code below to directly open the live project website.
+Scan the QR code below to directly open the live project.
 
 <p align="center">
   <img src="qr-code.png" alt="QR Code - AI Network Fault Prediction" width="250">
@@ -36,61 +43,59 @@ Scan the QR code below to directly open the live project website.
 
 ---
 
-## 📌 Project Overview
+# 📌 Project Overview
 
-Network failures can result in downtime, slow performance, packet loss, congestion, and security problems.
+The **AI Network Fault Prediction & Monitoring System** is an intelligent web-based application designed to monitor network conditions and predict possible network faults using an **AI-based Bayesian Network model**.
 
-The **AI Network Fault Prediction & Monitoring System** provides a centralized dashboard that combines AI-based prediction with network monitoring and visualization features.
+Network failures can occur because of high CPU utilization, increased latency, packet loss, insufficient bandwidth, congestion, and other network conditions.
 
-The system analyzes:
+The proposed system provides a centralized dashboard where network parameters can be entered and analyzed by the AI model.
 
-- CPU Usage
-- Network Latency
-- Packet Loss
-- Bandwidth
+The system then provides:
 
-and uses these parameters to determine the possible network risk level.
+- Network health status
+- Fault probability
+- Risk classification
+- Device status
+- Root cause analysis
+- Security alerts
+- AI recommendations
+- Network traffic visualization
+- Protocol distribution
+- Packet monitoring
+- Network topology visualization
+- Live event monitoring
 
-The dashboard also provides network topology visualization, Wireshark-style packet monitoring, traffic visualization, intrusion detection, root cause analysis, and AI-based recommendations.
-
----
-
-## ✨ Key Features
-
-### 🤖 1. AI Network Fault Prediction
-
-The system uses a **Bayesian Network-based AI approach** to estimate the probability of a network fault.
-
-Input parameters include:
-
-- CPU Usage
-- Latency
-- Packet Loss
-- Bandwidth
-
-The system classifies the network condition into different risk levels such as:
-
-- 🟢 Low Risk
-- 🟡 Medium Risk
-- 🔴 High Risk
+The project combines **Artificial Intelligence, Network Monitoring, Visualization, and Security concepts** into a single dashboard.
 
 ---
 
-### 🌐 2. Cisco Packet Tracer Network Topology
+# 🎯 Problem Statement
 
-The dashboard provides a simulated network topology inspired by **Cisco Packet Tracer**.
+Traditional network monitoring systems generally require administrators to manually examine different network parameters and tools to identify possible failures.
 
-The topology contains:
+This can make fault identification time-consuming.
+
+The objective of this project is to develop a centralized AI-assisted system that can:
+
+1. Analyze important network parameters.
+2. Predict the possibility of network faults.
+3. Identify possible causes of network problems.
+4. Display network device conditions.
+5. Visualize network traffic and packet information.
+6. Provide security-related alerts.
+7. Recommend possible corrective actions.
+
+---
+
+# 💡 Proposed Solution
+
+The proposed system uses a **Bayesian Network-based AI model** to estimate the probability of network failure based on selected network parameters.
+
+The user provides:
 
 ```text
-Internet
-    ↓
-Firewall
-    ↓
-Router
-    ↓
-Switch
- ┌──┼──────┬──────┐
-PC-1 PC-2 Server WiFi AP
-                ↓
-             Mobile
+CPU Usage
+Latency
+Packet Loss
+Bandwidth
