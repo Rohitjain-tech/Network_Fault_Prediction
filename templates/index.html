@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>AI Network Fault Prediction Dashboard
+</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+
+</head>
+
+<body>
+
+<!-- ===================== HEADER ===================== -->
+
+<header class="header">
+
+<div class="logo">
+
+🌐 AI Network_Fault_Prediction
+
+</div>
+
+<div class="header-right">
+
+<span class="badge">
+
+AI Powered
+
+</span>
+
+<span class="badge">
+
+Cisco Packet Tracer
+
+</span>
+
+<span class="badge">
+
+Wireshark
+
+</span>
+
+</div>
+
+</header>
+
+<!-- ===================== TOP CARDS ===================== -->
+
+<div class="dashboard">
+
+<div class="card status-card">
+
+<h3>Network Health</h3>
+
+{% if probability %}
+
+<h1>
+
+{{ ((1-probability)*100)|round(0) }}%
+
+</h1>
+
+{% else %}
+
+<h1>
+
+100%
+
+</h1>
+
+{% endif %}
+
+<p>Overall Health</p>
+
+</div>
+
+<div class="card status-card">
+
+<h3>Risk Level</h3>
+
+{% if probability %}
+
+{% if probability>0.7 %}
+
+<h1 class="danger">
+
+HIGH
+
+</h1>
+
+{% elif probability>0.4 %}
+
+<h1 class="warning">
+
+MEDIUM
+
+</h1>
+
+{% else %}
+
+<h1 class="safe">
+
+LOW
+
+</h1>
+
+{% endif %}
+
+{% else %}
+
+<h1 class="safe">
+
+NORMAL
+
+</h1>
+
+{% endif %}
+
+<p>AI Prediction</p>
+
+</div>
+
+<div class="card status-card">
+
+<h3>Connected Devices</h3>
+
+<h1>
+
+6
+
+</h1>
+
+<p>Online</p>
+
+</div>
+
+<div class="card status-card">
+
+<h3>Alerts</h3>
+
+{% if probability %}
+
+{% if probability>0.7 %}
+
+<h1 class="danger">
+
+3
+
+</h1>
+
+{% elif probability>0.4 %}
+
+<h1 class="warning">
+
+1
+
+</h1>
+
+{% else %}
+
+<h1 class="safe">
+
+0
+
+</h1>
+
+{% endif %}
+
+{% else %}
+
+<h1 class="safe">
+
+0
+
+</h1>
+
+{% endif %}
+
+<p>Active Alerts</p>
+
+</div>
+
+</div>
+
+<!-- ===================== MAIN GRID ===================== -->
+
+<div class="main-grid">
+
+<!-- LEFT PANEL -->
+
+<div class="left-panel">
+
+<div class="panel">
+
+<h2>
+
+🤖 AI Network Fault Prediction
+
+</h2>
+
+<form method="POST">
+
+<div class="grid-2">
+
+<div>
+
+<label>
+
+CPU Usage
+
+</label>
+
+<select name="cpu" required>
+
+<option value="">Select</option>
+
+<option value="1">Low</option>
+
+<option value="2">Medium</option>
+
+<option value="3">High</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label>
+
+Latency
+
+</label>
+
+<select name="latency" required>
+
+<option value="">Select</option>
+
+<option value="1">Low</option>
+
+<option value="2">Medium</option>
+
+<option value="3">High</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label>
+
+Packet Loss
+
+</label>
+
+<select name="packetloss" required>
+
+<option value="">Select</option>
+
+<option value="0">No</option>
+
+<option value="1">Yes</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label>
+
+Bandwidth
+
+</label>
+
+<select name="bandwidth" required>
+
+<option value="">Select</option>
+
+<option value="1">Low</option>
+
+<option value="2">Medium</option>
+
+<option value="3">High</option>
+
+</select>
+
+</div>
+
+</div>
+
+<button>
+
+Predict Fault
+
+</button>
+
+</form>
+
+{% if message %}
+
+<div class="prediction-box">
+
+<h2>
+
+{{ message }}
+
+</h2>
+
+<p>
+
+Probability :
+
+{{ (probability*100)|round(2) }}%
+
+</p>
+
+</div>
+
+{% endif %}
+<!-- ===================== PACKET TRACER TOPOLOGY ===================== -->
+
+<div class="panel">
+
+    <h2>🌐 Packet Tracer Network Topology</h2>
+
+    <div class="network-topology">
+
+        <div class="device internet">
+            ☁
+            <span>Internet</span>
+        </div>
+
+        <div class="v-line"></div>
+
+        <div class="device firewall">
+            🔥
+            <span>Firewall</span>
+        </div>
+
+        <div class="v-line"></div>
+
+        <div class="device router
+        {% if probability %}
+            {% if probability > 0.7 %}
+                danger
+            {% elif probability > 0.4 %}
+                warning
+            {% else %}
+                safe
+            {% endif %}
+        {% endif %}
+        ">
+            📡
+            <span>Router</span>
+        </div>
+
+        <div class="v-line"></div>
+
+        <div class="device switch">
+            🔀
+            <span>Switch</span>
+        </div>
+
+        <div class="horizontal-line"></div>
+
+        <div class="device-row">
+
+            <div class="device pc">
+                💻
+                <span>PC-1</span>
+            </div>
+
+            <div class="device pc">
+                💻
+                <span>PC-2</span>
+            </div>
+
+            <div class="device server">
+                🖥
+                <span>Server</span>
+            </div>
+
+            <div class="device wifi">
+                📶
+                <span>WiFi AP</span>
+            </div>
+
+        </div>
+
+        <div class="v-line"></div>
+
+        <div class="device mobile">
+            📱
+            <span>Mobile</span>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================== DEVICE STATUS ===================== -->
+
+<div class="panel">
+
+<h2>
+
+🖥 Device Status
+
+</h2>
+
+<table class="device-table">
+
+<tr>
+
+<th>Device</th>
+
+<th>Status</th>
+
+<th>CPU</th>
+
+<th>Latency</th>
+
+<th>Packet Loss</th>
+
+</tr>
+
+<tr>
+
+<td>Router</td>
+
+{% if probability %}
+
+{% if probability>0.7 %}
+
+<td class="danger">
+
+Critical
+
+</td>
+
+<td>95%</td>
+
+<td>180 ms</td>
+
+<td>High</td>
+
+{% elif probability>0.4 %}
+
+<td class="warning">
+
+Warning
+
+</td>
+
+<td>70%</td>
+
+<td>80 ms</td>
+
+<td>Medium</td>
+
+{% else %}
+
+<td class="safe">
+
+Healthy
+
+</td>
+
+<td>30%</td>
+
+<td>12 ms</td>
+
+<td>None</td>
+
+{% endif %}
+
+{% else %}
+
+<td class="safe">
+
+Healthy
+
+</td>
+
+<td>20%</td>
+
+<td>8 ms</td>
+
+<td>None</td>
+
+{% endif %}
+
+</tr>
+
+<tr>
+
+<td>Switch</td>
+
+<td class="safe">
+
+Healthy
+
+</td>
+
+<td>34%</td>
+
+<td>15 ms</td>
+
+<td>None</td>
+
+</tr>
+
+<tr>
+
+<td>Server</td>
+
+<td class="safe">
+
+Healthy
+
+</td>
+
+<td>42%</td>
+
+<td>20 ms</td>
+
+<td>None</td>
+
+</tr>
+
+<tr>
+
+<td>Firewall</td>
+
+<td class="safe">
+
+Active
+
+</td>
+
+<td>12%</td>
+
+<td>2 ms</td>
+
+<td>Blocked</td>
+
+</tr>
+
+</table>
+
+</div>
+<!-- =====================================
+        WIRESHARK LIVE CAPTURE
+====================================== -->
+
+<div class="panel">
+
+<h2>
+
+📦 Wireshark Live Packet Capture
+
+</h2>
+
+<table class="packet-table">
+
+<thead>
+
+<tr>
+
+<th>Time</th>
+
+<th>Source</th>
+
+<th>Destination</th>
+
+<th>Protocol</th>
+
+<th>Length</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="packetBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script src="{{ url_for('static', filename='packet.js') }}"></script>
+
+
+</div>
+<!-- =======================================
+      NETWORK TRAFFIC GRAPH
+======================================= -->
+
+<div class="panel">
+
+<h2>📈 Live Network Traffic</h2>
+
+<canvas id="trafficChart"></canvas>
+
+</div>
+
+<script src="{{ url_for('static', filename='charts.js') }}"></script>
+<!-- ===================== RIGHT PANEL ===================== -->
+
+<div class="right-panel">
+
+<div class="panel">
+
+<h2>
+
+🧠 AI Expert System
+
+</h2>
+
+<p>
+
+<b>Model:</b>
+
+Bayesian Network
+
+</p>
+
+<p>
+
+The AI continuously evaluates
+
+CPU,
+
+Latency,
+
+Bandwidth
+
+and
+
+Packet Loss
+
+to estimate the probability of network failure.
+
+</p>
+
+<h3>
+
+Knowledge Base
+
+</h3>
+
+<ul>
+
+<li>High CPU + High Latency → Congestion</li>
+
+<li>Packet Loss → Fault</li>
+
+<li>Low Bandwidth → Performance Issue</li>
+
+<li>High Latency + Packet Loss → Critical Risk</li>
+
+</ul>
+
+<h3>
+
+Inference
+
+</h3>
+
+{% if message %}
+
+<div class="prediction-result">
+
+{{ message }}
+
+</div>
+
+{% else %}
+
+<p>
+
+No Prediction Yet
+
+</p>
+
+{% endif %}
+
+</div>
+<!-- ===================== PROTOCOL DISTRIBUTION ===================== -->
+
+<div class="panel">
+
+<h2>
+
+📊 Protocol Distribution
+
+</h2>
+
+<div class="protocol-grid">
+
+<div class="protocol-card tcp">
+TCP
+<h3>45%</h3>
+</div>
+
+<div class="protocol-card udp">
+UDP
+<h3>20%</h3>
+</div>
+
+<div class="protocol-card http">
+HTTP
+<h3>25%</h3>
+</div>
+
+<div class="protocol-card dns">
+DNS
+<h3>10%</h3>
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================
+      INTRUSION DETECTION
+===================================== -->
+
+<div class="panel">
+
+<h2>
+
+🚨 Intrusion Detection System
+
+</h2>
+
+<div id="alertBox"
+class="alert success">
+
+Loading...
+
+</div>
+
+</div>
+
+<script src="{{ url_for('static', filename='alerts.js') }}"></script>
+<!-- =========================================
+        AI ROOT CAUSE ANALYSIS
+========================================= -->
+
+<div class="panel">
+
+<h2>🧠 AI Root Cause Analysis</h2>
+
+<table class="root-table">
+
+<tr>
+
+<th>Parameter</th>
+
+<th>Status</th>
+
+</tr>
+
+<tr>
+
+<td>CPU Usage</td>
+
+<td id="cpuStatus">Checking...</td>
+
+</tr>
+
+<tr>
+
+<td>Latency</td>
+
+<td id="latencyStatus">Checking...</td>
+
+</tr>
+
+<tr>
+
+<td>Packet Loss</td>
+
+<td id="lossStatus">Checking...</td>
+
+</tr>
+
+<tr>
+
+<td>Bandwidth</td>
+
+<td id="bandwidthStatus">Checking...</td>
+
+</tr>
+
+<tr>
+
+<td><b>Root Cause</b></td>
+
+<td id="rootCause"><b>Analyzing...</b></td>
+
+</tr>
+
+<tr>
+
+<td><b>Confidence</b></td>
+
+<td id="confidence"><b>0%</b></td>
+
+</tr>
+
+</table>
+
+</div>
+
+<script src="{{ url_for('static', filename='rootcause.js') }}"></script>
+<!-- =====================================
+     PROTOCOL DISTRIBUTION
+====================================== -->
+
+<div class="panel">
+
+<h2>
+
+📊 Protocol Distribution
+
+</h2>
+
+<canvas id="protocolChart"></canvas>
+
+</div>
+
+<script src="{{ url_for('static', filename='protocolChart.js') }}"></script>
+<!-- =======================================
+      NETWORK EVENT LOG
+======================================= -->
+
+<div class="panel">
+
+<h2>
+
+📜 Live Network Event Log
+
+</h2>
+
+<div id="eventLog">
+
+</div>
+
+</div>
+
+<script src="{{ url_for('static', filename='eventlog.js') }}"></script>
+
+<!-- ===================== SECURITY ALERTS ===================== -->
+
+<div class="panel">
+
+<h2>
+
+🚨 Security Alerts
+
+</h2>
+
+{% if probability %}
+
+{% if probability>0.7 %}
+
+<div class="alert danger">
+
+⚠ Router Congestion Detected
+
+</div>
+
+<div class="alert danger">
+
+⚠ High Packet Loss
+
+</div>
+
+<div class="alert warning">
+
+⚠ Possible DoS Traffic
+
+</div>
+
+{% elif probability>0.4 %}
+
+<div class="alert warning">
+
+⚠ Network Load Increasing
+
+</div>
+
+{% else %}
+
+<div class="alert success">
+
+✔ No Threats Detected
+
+</div>
+
+{% endif %}
+
+{% else %}
+
+<div class="alert success">
+
+✔ Waiting for Analysis
+
+</div>
+
+{% endif %}
+
+</div>
+
+<!-- ===================== ROOT CAUSE ===================== -->
+
+<div class="panel">
+
+<h2>
+
+🧠 Root Cause Analysis
+
+</h2>
+
+{% if probability %}
+
+{% if probability>0.7 %}
+
+<ul>
+
+<li>High CPU Usage</li>
+
+<li>High Network Latency</li>
+
+<li>Packet Loss Detected</li>
+
+<li>Router Congestion</li>
+
+<li>Bandwidth Bottleneck</li>
+
+</ul>
+
+{% elif probability>0.4 %}
+
+<ul>
+
+<li>Moderate Network Load</li>
+
+<li>Increasing Latency</li>
+
+<li>Monitor Router Performance</li>
+
+</ul>
+
+{% else %}
+
+<ul>
+
+<li>Network Stable</li>
+
+<li>No Packet Loss</li>
+
+<li>Performance Normal</li>
+
+</ul>
+
+{% endif %}
+
+{% else %}
+
+<p>
+
+Prediction Required
+
+</p>
+
+{% endif %}
+
+</div>
+<!-- ===========================
+     CISCO PACKET TRACER
+============================ -->
+
+<div class="panel">
+
+    <h2>🌐 Cisco Packet Tracer Network</h2>
+
+    <div class="network-topology">
+
+        <!-- Internet -->
+        <div class="device internet">
+            <div class="icon">☁</div>
+            <span>Internet</span>
+        </div>
+
+        <div class="vertical-line"></div>
+
+        <!-- Firewall -->
+        <div class="device firewall">
+            <div class="icon">🔥</div>
+            <span>Firewall</span>
+        </div>
+
+        <div class="vertical-line"></div>
+
+        <!-- Router -->
+        <div id="router" class="device router">
+
+            <div class="icon">📡</div>
+
+            <span>Router</span>
+
+            <small id="routerStatus">
+
+                🟢 Healthy
+
+            </small>
+
+        </div>
+
+        <div class="vertical-line"></div>
+
+        <!-- Switch -->
+        <div class="device switch">
+
+            <div class="icon">🔀</div>
+
+            <span>Switch</span>
+
+        </div>
+
+        <!-- Horizontal Line -->
+
+        <div class="horizontal-line"></div>
+
+        <!-- Devices -->
+
+        <div class="device-row">
+
+            <div class="device pc">
+
+                <div class="icon">💻</div>
+
+                <span>PC-1</span>
+
+            </div>
+
+            <div class="device pc">
+
+                <div class="icon">💻</div>
+
+                <span>PC-2</span>
+
+            </div>
+
+            <div class="device server">
+
+                <div class="icon">🖥</div>
+
+                <span>Server</span>
+
+            </div>
+
+            <div class="device wifi">
+
+                <div class="icon">📶</div>
+
+                <span>WiFi AP</span>
+
+            </div>
+
+        </div>
+
+        <div class="vertical-line"></div>
+
+        <!-- Mobile -->
+
+        <div class="device mobile">
+
+            <div class="icon">📱</div>
+
+            <span>Mobile</span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Hidden AI Probability -->
+
+<input
+type="hidden"
+id="predictionProbability"
+value="{{ probability if probability else 0 }}">
+
+<!-- Load Topology Script -->
+
+<script src="{{ url_for('static', filename='topology.js') }}"></script>
+
+<!-- ===================== AI RECOMMENDATION ===================== -->
+
+<div class="panel">
+
+<h2>
+
+💡 AI Recommendation
+
+</h2>
+
+{% if suggestion %}
+
+<div class="recommend-box">
+
+{{ suggestion }}
+
+</div>
+
+{% else %}
+
+<p>
+
+Run Prediction First
+
+</p>
+
+{% endif %}
+
+</div>
+
+<!-- ===================== DOWNLOAD ===================== -->
+
+{% if message %}
+
+<div class="panel">
+
+<a href="/download">
+
+<button class="download-btn">
+
+📥 Download AI Report
+
+</button>
+
+</a>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+
+
+<div class="panel">
+
+<h2>🟢 System Status</h2>
+
+<div class="system-grid">
+
+<div class="status-box online">
+
+🟢 AI Engine
+
+</div>
+
+<div class="status-box online">
+
+🟢 Router
+
+</div>
+
+<div class="status-box online">
+
+🟢 Switch
+
+</div>
+
+<div class="status-box online">
+
+🟢 Firewall
+
+</div>
+
+<div class="status-box online">
+
+🟢 Database
+
+</div>
+
+<div class="status-box online">
+
+🟢 Monitoring
+
+</div>
+
+</div>
+
+</div>
+<!-- ==========================================
+            FOOTER
+=========================================== -->
+
+<footer class="footer">
+
+<hr>
+
+<h3>🤖 AI Network Monitoring Dashboard</h3>
+
+<p>
+
+Developed By : <b>Rohit Ubale</b>
+
+</p>
+
+<p>
+
+Department of Computer Science & Engineering
+
+</p>
+
+<p>
+
+Powered By
+
+Python • Flask • Bayesian AI • Cisco Packet Tracer • Wireshark • Chart.js
+
+</p>
+
+<p>
+
+© 2026 All Rights Reserved
+
+</p>
+
+</footer>
+
+</body>
+
+</html>
